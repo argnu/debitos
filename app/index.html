@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" ng-app="debitoApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Débitos Directos</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="app.css" charset="utf-8">
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+
+
+    <script src="database.js"></script>
+
+    <script src="app.module.js" charset="utf-8"></script>
+    <script src="app.config.js"></script>
+    <script src="directives.js"></script>
+
+    <script src="debitos/debitos.module.js" charset="utf-8"></script>
+    <script src="debitos/debitos.service.js" charset="utf-8"></script>
+    <script src="debitos/add-debito.component.js" charset="utf-8"></script>
+    <script src="debitos/edit-debito.component.js" charset="utf-8"></script>
+    <script src="debitos/list-debitos.component.js" charset="utf-8"></script>
+    <script src="debitos/export-debitos.component.js" charset="utf-8"></script>
+    <script src="debitos/nobaseerror.component.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+      var win = nw.Window.get();
+      win.width = 1024;
+      win.height = 600;
+      win.showDevTools();
+
+      var BaseDebitos;
+      Database.open('BaseDebitos.db')
+        .then(function(db) {
+          console.log("Base de datos abierta", db);
+          Database.db = db;
+        })
+        .catch(function(err) {
+          window.location.hash = '#/nobaseerror';
+          console.log("Error", err);
+        })
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="container-fluid">
+
+      <img src="../logo_fundacion.jpg" alt="" />
+
+      <br><br><br>
+
+      <nav role="navigation" bs-active-link menu-active>
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active"><a href="#/add">Agregar</a></li>
+          <li role="presentation" ><a href="#/list">Modificar</a></li>
+          <li role="presentation"><a href="#/export">Exportar</a></li>
+        </ul>
+      </nav>
+
+      <div class="view-container">
+        <div ng-view class="view-frame"></div>
+      </div>
+
+    </div>
+
+  </body>
+</html>

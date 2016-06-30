@@ -1,0 +1,108 @@
+<div class="panel panel-default" style="margin-top:5%">
+  <div class="panel-heading"
+    style="text-align:center;font-weight:bold;font-size:130%">
+    Agregar Débito
+  </div>
+  <div class="panel-body">
+
+    <form name="userForm" ng-submit="$ctrl.submitForm(userForm.$valid)" novalidate>
+
+     <div class="form-group"
+        ng-class=" {'has-error': userForm.nombre.$invalid
+          && userForm.nombre.$touched && $ctrl.submitted}">
+       <i class="fa fa-user" aria-hidden="true"></i>
+       &nbsp;&nbsp;
+       <label for="nombre">Nombre:</label>
+       <input type="text" class="form-control" name="nombre"
+          required ng-model="$ctrl.debito.nombre" />
+       <br>
+       <p ng-show="userForm.nombre.$invalid
+            && userForm.nombre.$touched && $ctrl.submitted"
+            class="alert alert-danger">Debe ingresar un nombre</p>
+     </div>
+
+     <div class="form-group"
+       ng-class=" {'has-error': userForm.apellido.$invalid
+         && userForm.apellido.$touched && $ctrl.submitted}">
+       <i class="fa fa-user" aria-hidden="true"></i>
+       &nbsp;&nbsp;
+       <label for="apellido">Apellido:</label>
+       <input type="text" class="form-control" name="apellido"
+        required ng-model="$ctrl.debito.apellido">
+        <br>
+        <p ng-show="userForm.apellido.$invalid
+             && userForm.apellido.$touched && $ctrl.submitted"
+             class="alert alert-danger">Debe ingresar un apellido</p>
+     </div>
+
+     <div class="form-group"
+       ng-class=" {'has-error': userForm.cuil.$invalid
+         && userForm.cuil.$touched && $ctrl.submitted}">
+       <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+       &nbsp;&nbsp;
+       <label for="cuil">CUIL:</label>
+       <input type="number" class="form-control" name="cuil">
+       <br>
+       <p ng-show="userForm.nombre.$invalid
+            && userForm.nombre.$touched && $ctrl.submitted"
+            class="alert alert-danger">Debe ingresar un CUIL</p>
+     </div>
+
+     <div class="form-group"
+       ng-class=" {'has-error': userForm.direccion.$invalid
+         && userForm.direccion.$touched && $ctrl.submitted}">
+       <i class="fa fa-map-marker" aria-hidden="true"></i>
+       &nbsp;&nbsp;
+       <label for="direccion">Dirección:</label>
+       <input type="text" class="form-control" name="direccion">
+       <br>
+       <p ng-show="userForm.nombre.$invalid
+            && userForm.nombre.$touched && $ctrl.submitted"
+            class="alert alert-danger">Debe ingresar una dirección</p>
+     </div>
+
+     <div class="form-group"
+       ng-class=" {'has-error': userForm.entidad.$invalid
+         && userForm.entidad.$touched && $ctrl.submitted}">
+       <i class="fa fa-university" aria-hidden="true"></i>
+       &nbsp;&nbsp;
+       <label for="entidad">Entidad Bancaria:</label>
+       <input type="text" class="form-control" name="entidad">
+       <br>
+       <p ng-show="userForm.nombre.$invalid
+            && userForm.nombre.$touched && $ctrl.submitted"
+            class="alert alert-danger">Debe ingresar una entidad</p>
+     </div>
+
+     <div class="form-group"
+       ng-class=" {'has-error': userForm.cbu.$invalid
+         && userForm.cbu.$touched && $ctrl.submitted}">
+       <i class="fa fa-credit-card" aria-hidden="true"></i>
+       &nbsp;&nbsp;
+       <label for="cbu">CBU:</label>
+       <input type="number" class="form-control" name="cbu">
+       <br>
+       <p ng-show="userForm.nombre.$invalid
+            && userForm.nombre.$touched && $ctrl.submitted"
+            class="alert alert-danger">Debe ingresar un CBU</p>
+     </div>
+
+     <div class="form-group"
+       ng-class=" {'has-error': userForm.fvencimiento.$invalid
+         && userForm.fvencimiento.$touched && $ctrl.submitted}">
+       <i class="fa fa-calendar" aria-hidden="true"></i>
+       &nbsp;&nbsp;
+       <label for="fvencimiento">Fecha de Vencimiento:</label>
+       <input type="date" class="form-control" name="fvencimiento">
+       <br>
+       <p ng-show="userForm.nombre.$invalid
+            && userForm.nombre.$touched && $ctrl.submitted"
+            class="alert alert-danger">Debe ingresar una fecha de vencimiento</p>
+     </div>
+
+
+     <button type="submit" class="btn btn-default pull-right">
+        Enviar</button>
+   </form>
+  </div>
+</div>

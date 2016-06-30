@@ -1,0 +1,40 @@
+<div class="panel panel-default" style="margin-top:5%">
+  <div class="panel-heading"
+    style="text-align:center;font-weight:bold;font-size:130%">
+    Modificar Débito
+  </div>
+  <div class="panel-body">
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <input type="text" class="form-control"
+          id="filter" ng-model='$ctrl.filter' style="width:300px"
+          placeholder="Buscar...">
+          &nbsp;&nbsp;<i class="fa fa-search" aria-hidden="true"></i>
+      </div>
+    </form>
+    <br>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>CUIL</th>
+          <th>CBU</th>
+          <th>
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+
+<!--
+<ul>
+  <li ng-repeat="deb in $ctrl.debitos | filter:$ctrl.filter">
+    {{ deb }}
+  </li>
+  <br>
+  <span>Cantidad: {{ $ctrl.debitos.length }}</span>
+</ul>
+-->
