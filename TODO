@@ -1,0 +1,16 @@
+- Agregar debito a la base.
+- Consultar débitos de la base.
+- Validación de CBU.
+- Armar el string de exportación.
+- Vista para importar base de datos.
+
+
+
+Debitos:
+  -nombre
+  -apellido
+  -cuil
+  -direccion
+  -entidad
+  -cbu
+  -fvenc
