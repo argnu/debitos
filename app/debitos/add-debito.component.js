@@ -8,6 +8,7 @@ angular.
 
       this.$onInit = function() {
         self.iniciarDebito();
+        self.title = 'Agregar Débito';
       };
 
       this.iniciarDebito = function () {
@@ -18,9 +19,11 @@ angular.
           direccion: '',
           entidad: '',
           cbu: '',
-          fvenc: ''
+          fvenc: '',
+          falta: '',
+          monto: ''
         };
-      }
+      };
 
       this.submitForm = function(isValid) {
         self.submitted = true;
@@ -33,7 +36,7 @@ angular.
             })
             .catch(function(error) {
               alert(error);
-            })
+            });
         }
       };
 

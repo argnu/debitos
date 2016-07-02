@@ -9,7 +9,7 @@ angular.
         when('/list', {
           template: '<list-debitos></list-debitos>'
         }).
-        when('/edit', {
+        when('/edit/:id', {
           template: '<edit-debito></edit-debito>'
         }).
         when('/export', {

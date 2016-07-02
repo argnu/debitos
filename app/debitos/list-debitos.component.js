@@ -16,7 +16,8 @@ angular.
         };
 
         this.editDebito = function(id) {
-          console.log(id);          
-        }
+          window.location.hash = `#/edit/${id}`;  //jshint ignore:line
+        };
+
       }]
   });
