@@ -1,7 +1,12 @@
 {
-  "name": "Debitos",
+  "name": "debitos",
   "main": "app/index.html",
-  "dependencies": {
-    "sqlite3": "^3.1.4"
+  "scripts": {
+    "start": "nw .",
+    "initDev": "npm install nw-gyp -g; npm install sqlite3 --build-from-source --runtime=node-webkit --target_arch=$npm_package_config_arch --target=$npm_package_config_nwversion"
+  },
+  "config": {
+    "arch": "x64",
+    "nwversion": "0.15.4"
   }
 }

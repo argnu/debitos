@@ -2,11 +2,11 @@ angular.
   module('debitos').
   component('listDebitos', {
       templateUrl: 'debitos/list-debitos.template.html',
-      controller: ['debitosBD', function ListDebitosController(debitosBD) {
+      controller: ['debitosService', function ListDebitosController(debitosService) {
         var self = this;
 
         this.$onInit = function() {
-          debitosBD.getDebitos()
+          debitosService.getDebitos()
             .then(function(result) {
               self.debitos = result;
             })
@@ -15,14 +15,8 @@ angular.
             });
         };
 
-        this.contador = 0;
-
-        this.sumar = function (param) {
-          var param = (+param);
-          if (param)
-            self.contador = self.contador + param ;
-          else
-            self.error = "Te equivocaste!!!"
+        this.editDebito = function(id) {
+          console.log(id);          
         }
       }]
   });

@@ -2,20 +2,40 @@ angular.
   module('debitos').
   component('addDebito', {
     templateUrl: 'debitos/add-debito.template.html',
-    controller: function AddDebitoController() {
+    controller: ['debitosService', function AddDebitoController(debitosService) {
       var self = this;
 
-      this.debito = {
-        nombre: '',
-        apellido: ''
+
+      this.$onInit = function() {
+        self.iniciarDebito();
       };
+
+      this.iniciarDebito = function () {
+        self.debito = {
+          nombre: '',
+          apellido: '',
+          cuil: '',
+          direccion: '',
+          entidad: '',
+          cbu: '',
+          fvenc: ''
+        };
+      }
 
       this.submitForm = function(isValid) {
         self.submitted = true;
         if (isValid) {
-          alert('our form is amazing');
+          debitosService.addDebito(self.debito)
+            .then(function(response) {
+              alert("El débito directo se ha agregado exitosamente!");
+              self.iniciarDebito();
+              self.submitted = false;
+            })
+            .catch(function(error) {
+              alert(error);
+            })
         }
       };
 
-    }
+    }]
   });

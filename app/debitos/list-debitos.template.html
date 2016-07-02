@@ -25,16 +25,18 @@
           </th>
         </tr>
       </thead>
+      <tbody>
+        <tr ng-repeat="deb in $ctrl.debitos | filter:$ctrl.filter">
+          <td>{{ deb.nombre }}</td>
+          <td>{{ deb.apellido }}</td>
+          <td>{{ deb.cuil }}</td>
+          <td>{{ deb.cbu }}</td>
+          <td>
+            <i class="fa fa-pencil-square-o edit" aria-hidden="true"
+                ng-click="$ctrl.editDebito(deb.id)">
+            </i>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
-
-
-<!--
-<ul>
-  <li ng-repeat="deb in $ctrl.debitos | filter:$ctrl.filter">
-    {{ deb }}
-  </li>
-  <br>
-  <span>Cantidad: {{ $ctrl.debitos.length }}</span>
-</ul>
--->
