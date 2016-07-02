@@ -27,8 +27,8 @@ var Database = (function() {
         "nombre TEXT, apellido TEXT, cuil TEXT, direccion TEXT)");
         database.db.run("CREATE TABLE debito (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
         "cbu TEXT, activo BOOLEAN, iddonante INTEGER," +
-        "entidad TEXT, fvenc TEXT, falta TEXT, monto REAL" +
-        "FOREIGN KEY(iddonante) REFERENCES donante(id))");
+        "entidad TEXT, fvenc REAL, falta REAL, monto REAL, " +
+        " FOREIGN KEY(iddonante) REFERENCES donante(id))");
     }
   };
 

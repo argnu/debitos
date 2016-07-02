@@ -2,17 +2,17 @@ angular.
   module('debitos').
   component('editDebito', {
     templateUrl: 'debitos/add-debito.template.html',
-    controller: ['debitosService', '$routeParams',
-      function EditDebitoController(debitosService, $routeParams) {
+    controller: ['debitosService', '$routeParams', '$location',
+      function EditDebitoController(debitosService, $routeParams, $location) {
       var self = this;
 
       this.$onInit = function () {
         debitosService.getDebito($routeParams.id)
           .then(function(debito) {
-            debito.fvenc = Date.parse(debito.fvenc);
+            debito.fvenc = new Date(debito.fvenc);
+            debito.falta = new Date(debito.falta);
             debito.cuil = parseInt(debito.cuil);
             debito.cbu = parseInt(debito.cbu);
-            console.log(debito);
             self.debito = debito;
           })
           .catch(function(error) {
@@ -20,7 +20,22 @@ angular.
           });
 
         self.title = "Modificar Débito";
-
       };
+
+      this.submitForm = function(isValid) {
+        self.submitted = true;
+        if (isValid) {
+          debitosService.updateDebito(self.debito)
+            .then(function(response) {
+              alert("El débito directo se ha modificado exitosamente!");
+              $location.url('/list');
+            })
+            .catch(function(error) {
+              alert(error);
+            });
+        }
+      };
+
+
     }]
   });

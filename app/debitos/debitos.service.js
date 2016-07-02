@@ -44,15 +44,9 @@ angular.module('debitos').
               return;
             }
             else {
-              var fvenc = debito.fvenc.getDate() +
-                  "-" + debito.fvenc.getMonth() +
-                  "-" + debito.fvenc.getYear();
-              var falta = debito.falta.getDate() +
-                  "-" + debito.falta.getMonth() +
-                  "-" + debito.falta.getYear();
               var sql = " INSERT INTO debito (cbu, activo, iddonante, entidad, fvenc, falta, monto) " +
-              ` VALUES ("${debito.cbu}", 1, ${this.lastID}, ` +
-              `"${debito.entidad}", "${fvenc}", "${falta}", ${debito.monto}) `;
+              ` VALUES ("${debito.cbu}", 1, ${this.lastID}, "${debito.entidad}", ` +
+              ` "${debito.fvenc}", "${debito.falta}", ${debito.monto}) `;
               Database.db.run(sql, [], function(error) {
                 if (error) {
                   reject(error);
@@ -65,6 +59,34 @@ angular.module('debitos').
             }
           });
 
+        });
+      },
+
+      updateDebito: function(debito) {
+        return $q(function(resolve, reject) {
+          var sql = " UPDATE donante SET " +
+          `nombre="${debito.nombre}", apellido="${debito.apellido}", ` +
+          `cuil="${debito.cuil}", direccion="${debito.direccion}"`;
+          Database.db.run(sql, [], function(error) {
+            if (error) {
+              reject(error);
+              return;
+            }
+            else {
+              var sql = " UPDATE debito SET " +
+              `cbu="${debito.cbu}", entidad="${debito.entidad}", ` +
+              `fvenc="${debito.fvenc}", falta="${debito.falta}", monto="${debito.monto}"`;
+              Database.db.run(sql, [], function(error) {
+                if (error) {
+                  reject(error);
+                  return;
+                }
+                else {
+                  resolve(this.lastID);
+                }
+              });
+            }
+          });
         });
       }
   };

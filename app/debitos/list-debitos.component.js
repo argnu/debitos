@@ -2,7 +2,8 @@ angular.
   module('debitos').
   component('listDebitos', {
       templateUrl: 'debitos/list-debitos.template.html',
-      controller: ['debitosService', function ListDebitosController(debitosService) {
+      controller: ['debitosService', '$location',
+        function ListDebitosController(debitosService, $location) {
         var self = this;
 
         this.$onInit = function() {
@@ -16,7 +17,7 @@ angular.
         };
 
         this.editDebito = function(id) {
-          window.location.hash = `#/edit/${id}`;  //jshint ignore:line
+          $location.url('/edit/' + id);
         };
 
       }]
