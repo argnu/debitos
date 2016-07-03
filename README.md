@@ -4,11 +4,12 @@ Débitos Directos. App desarrollada con AngularJS y Node Web Kit.
 
 TODO
 ----
+- Vista para importar base de datos existente.
+- Eliminar debito?
+- Controlar error si no puede crear la base.
 - Validación de CBU.
 - Armar el string de exportación.
-- Vista para importar base de datos existente.
-- Controlar error si no puede crear la base.
-- Eliminar debito?
+
 
 A TENER EN CUENTA
 -----------------

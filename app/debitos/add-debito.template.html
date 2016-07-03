@@ -5,137 +5,161 @@
   </div>
   <div class="panel-body">
 
-    <form name="userForm" ng-submit="$ctrl.submitForm(userForm.$valid)" novalidate>
-
-     <div class="form-group"
-        ng-class=" {'has-error': userForm.nombre.$invalid
-          && userForm.nombre.$touched && $ctrl.submitted}">
-       <i class="fa fa-user" aria-hidden="true"></i>
-       &nbsp;&nbsp;
-       <label for="nombre">Nombre:</label>
-       <input type="text" class="form-control" name="nombre"
-          required ng-model="$ctrl.debito.nombre" />
-       <br>
-       <p ng-show="userForm.nombre.$invalid
-            && userForm.nombre.$touched && $ctrl.submitted"
-            class="alert alert-danger">Debe ingresar un nombre</p>
-     </div>
-
-     <div class="form-group"
-       ng-class=" {'has-error': userForm.apellido.$invalid
-         && userForm.apellido.$touched && $ctrl.submitted}">
-       <i class="fa fa-user" aria-hidden="true"></i>
-       &nbsp;&nbsp;
-       <label for="apellido">Apellido:</label>
-       <input type="text" class="form-control" name="apellido"
-        required ng-model="$ctrl.debito.apellido">
-        <br>
-        <p ng-show="userForm.apellido.$invalid
-             && userForm.apellido.$touched && $ctrl.submitted"
-             class="alert alert-danger">Debe ingresar un apellido</p>
-     </div>
-
-     <div class="form-group"
-       ng-class=" {'has-error': userForm.cuil.$invalid
-         && userForm.cuil.$touched && $ctrl.submitted}">
-       <i class="fa fa-newspaper-o" aria-hidden="true"></i>
-       &nbsp;&nbsp;
-       <label for="cuil">CUIL:</label>
-       <input type="number" class="form-control" name="cuil"
-          required ng-model="$ctrl.debito.cuil">
-       <br>
-       <p ng-show="userForm.cuil.$invalid
-            && userForm.cuil.$touched && $ctrl.submitted"
-            class="alert alert-danger">Debe ingresar un CUIL</p>
-     </div>
-
-     <div class="form-group"
-       ng-class=" {'has-error': userForm.direccion.$invalid
-         && userForm.direccion.$touched && $ctrl.submitted}">
-       <i class="fa fa-map-marker" aria-hidden="true"></i>
-       &nbsp;&nbsp;
-       <label for="direccion">Dirección:</label>
-       <input type="text" class="form-control" name="direccion"
-          required ng-model="$ctrl.debito.direccion">
-       <br>
-       <p ng-show="userForm.direccion.$invalid
-            && userForm.direccion.$touched && $ctrl.submitted"
-            class="alert alert-danger">Debe ingresar una dirección</p>
-     </div>
-
-     <div class="form-group"
-       ng-class=" {'has-error': userForm.entidad.$invalid
-         && userForm.entidad.$touched && $ctrl.submitted}">
-       <i class="fa fa-university" aria-hidden="true"></i>
-       &nbsp;&nbsp;
-       <label for="entidad">Entidad Bancaria:</label>
-       <input type="text" class="form-control" name="entidad"
-          required ng-model="$ctrl.debito.entidad">
-       <br>
-       <p ng-show="userForm.entidad.$invalid
-            && userForm.entidad.$touched && $ctrl.submitted"
-            class="alert alert-danger">Debe ingresar una entidad</p>
-     </div>
-
-     <div class="form-group"
-       ng-class=" {'has-error': userForm.cbu.$invalid
-         && userForm.cbu.$touched && $ctrl.submitted}">
-       <i class="fa fa-credit-card" aria-hidden="true"></i>
-       &nbsp;&nbsp;
-       <label for="cbu">CBU:</label>
-       <input type="number" class="form-control" name="cbu"
-          required ng-model="$ctrl.debito.cbu">
-       <br>
-       <p ng-show="userForm.cbu.$invalid
-            && userForm.cbu.$touched && $ctrl.submitted"
-            class="alert alert-danger">Debe ingresar un CBU</p>
-     </div>
-
-     <div class="form-group"
-       ng-class=" {'has-error': userForm.falta.$invalid
-         && userForm.falta.$touched && $ctrl.submitted}">
-       <i class="fa fa-calendar" aria-hidden="true"></i>
-       &nbsp;&nbsp;
-       <label for="falta">Fecha de Alta:</label>
-       <input type="date" class="form-control" name="falta"
-          required ng-model="$ctrl.debito.falta">
-       <br>
-       <p ng-show="userForm.falta.$invalid
-            && userForm.falta.$touched && $ctrl.submitted"
-            class="alert alert-danger">Debe ingresar una fecha de alta</p>
-     </div>
-
-     <div class="form-group"
-       ng-class=" {'has-error': userForm.fvencimiento.$invalid
-         && userForm.fvencimiento.$touched && $ctrl.submitted}">
-       <i class="fa fa-calendar" aria-hidden="true"></i>
-       &nbsp;&nbsp;
-       <label for="fvencimiento">Fecha de Vencimiento:</label>
-       <input type="date" class="form-control" name="fvencimiento"
-          required ng-model="$ctrl.debito.fvenc">
-       <br>
-       <p ng-show="userForm.fvencimiento.$invalid
-            && userForm.fvencimiento.$touched && $ctrl.submitted"
-            class="alert alert-danger">Debe ingresar una fecha de vencimiento</p>
-     </div>
-
-     <div class="form-group"
-       ng-class=" {'has-error': userForm.monto.$invalid
-         && userForm.monto.$touched && $ctrl.submitted}">
-       <i class="fa fa-calendar" aria-hidden="true"></i>
-       &nbsp;&nbsp;
-       <label for="monto">Monto:</label>
-       <input type="number" step="0.01" class="form-control" name="monto"
-          required ng-model="$ctrl.debito.monto">
-       <br>
-       <p ng-show="userForm.monto.$invalid
-            && userForm.monto.$touched && $ctrl.submitted"
-            class="alert alert-danger">Debe ingresar un monto</p>
-     </div>
+    <div class="col-xs-offset-3 col-xs-6" ng-if="$ctrl.confirm">
+      <h3 style="text-align:center">Confirmación de Nuevo Débito:</h3>
+      <br>
+      <p>Por favor, verifique que los datos son correctos.</p>
+      <br><br>
+      <p>Nombre: <b>{{$ctrl.debito.nombre}}</b></p>
+      <p>Apellido: <b>{{$ctrl.debito.apellido}}</b></p>
+      <p>CUIL: <b>{{$ctrl.debito.cuil}}</b></p>
+      <p>Dirección: <b>{{$ctrl.debito.direccion}}</b></p>
+      <p>Entidad: <b>{{$ctrl.debito.entidad}}</b></p>
+      <p>CBU: <b>{{$ctrl.debito.cbu}}</b></p>
+      <p>Fecha de Alta: <b>{{$ctrl.debito.falta}}</b></p>
+      <p>Fecha de Vencimiento: <b>{{$ctrl.debito.fvenc}}</b></p>
+      <p>Monto: <b>{{$ctrl.debito.monto}}</b></p>
+      <br><br>
+      <button type="button" class="btn btn-info pull-right"
+          ng-click="$ctrl.confirmar()">Confirmar</button>
+    </div>
 
 
-     <button type="submit"
-        class="btn btn-default pull-right">Enviar</button>
-   </form>
+    <div ng-if="!$ctrl.confirm">
+      <form name="userForm" ng-submit="$ctrl.submitForm(userForm.$valid)" novalidate>
+
+       <div class="form-group"
+          ng-class=" {'has-error': userForm.nombre.$invalid
+            && userForm.nombre.$touched && $ctrl.submitted}">
+         <i class="fa fa-user" aria-hidden="true"></i>
+         &nbsp;&nbsp;
+         <label for="nombre">Nombre:</label>
+         <input type="text" class="form-control" name="nombre"
+            required ng-model="$ctrl.debito.nombre" />
+         <br>
+         <p ng-show="userForm.nombre.$invalid
+              && userForm.nombre.$touched && $ctrl.submitted"
+              class="alert alert-danger">Debe ingresar un nombre</p>
+       </div>
+
+       <div class="form-group"
+         ng-class=" {'has-error': userForm.apellido.$invalid
+           && userForm.apellido.$touched && $ctrl.submitted}">
+         <i class="fa fa-user" aria-hidden="true"></i>
+         &nbsp;&nbsp;
+         <label for="apellido">Apellido:</label>
+         <input type="text" class="form-control" name="apellido"
+          required ng-model="$ctrl.debito.apellido">
+          <br>
+          <p ng-show="userForm.apellido.$invalid
+               && userForm.apellido.$touched && $ctrl.submitted"
+               class="alert alert-danger">Debe ingresar un apellido</p>
+       </div>
+
+       <div class="form-group"
+         ng-class=" {'has-error': userForm.cuil.$invalid
+           && userForm.cuil.$touched && $ctrl.submitted}">
+         <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+         &nbsp;&nbsp;
+         <label for="cuil">CUIL:</label>
+         <input type="number" class="form-control" name="cuil"
+            required ng-model="$ctrl.debito.cuil">
+         <br>
+         <p ng-show="userForm.cuil.$invalid
+              && userForm.cuil.$touched && $ctrl.submitted"
+              class="alert alert-danger">Debe ingresar un CUIL</p>
+       </div>
+
+       <div class="form-group"
+         ng-class=" {'has-error': userForm.direccion.$invalid
+           && userForm.direccion.$touched && $ctrl.submitted}">
+         <i class="fa fa-map-marker" aria-hidden="true"></i>
+         &nbsp;&nbsp;
+         <label for="direccion">Dirección:</label>
+         <input type="text" class="form-control" name="direccion"
+            required ng-model="$ctrl.debito.direccion">
+         <br>
+         <p ng-show="userForm.direccion.$invalid
+              && userForm.direccion.$touched && $ctrl.submitted"
+              class="alert alert-danger">Debe ingresar una dirección</p>
+       </div>
+
+       <div class="form-group"
+         ng-class=" {'has-error': userForm.entidad.$invalid
+           && userForm.entidad.$touched && $ctrl.submitted}">
+         <i class="fa fa-university" aria-hidden="true"></i>
+         &nbsp;&nbsp;
+         <label for="entidad">Entidad Bancaria:</label>
+         <input type="text" class="form-control" name="entidad"
+            required ng-model="$ctrl.debito.entidad">
+         <br>
+         <p ng-show="userForm.entidad.$invalid
+              && userForm.entidad.$touched && $ctrl.submitted"
+              class="alert alert-danger">Debe ingresar una entidad</p>
+       </div>
+
+       <div class="form-group"
+         ng-class=" {'has-error': userForm.cbu.$invalid
+           && userForm.cbu.$touched && $ctrl.submitted}">
+         <i class="fa fa-credit-card" aria-hidden="true"></i>
+         &nbsp;&nbsp;
+         <label for="cbu">CBU:</label>
+         <input type="number" class="form-control" name="cbu"
+            required ng-model="$ctrl.debito.cbu">
+         <br>
+         <p ng-show="userForm.cbu.$invalid
+              && userForm.cbu.$touched && $ctrl.submitted"
+              class="alert alert-danger">Debe ingresar un CBU</p>
+       </div>
+
+       <div class="form-group"
+         ng-class=" {'has-error': userForm.falta.$invalid
+           && userForm.falta.$touched && $ctrl.submitted}">
+         <i class="fa fa-calendar" aria-hidden="true"></i>
+         &nbsp;&nbsp;
+         <label for="falta">Fecha de Alta:</label>
+         <input type="date" class="form-control" name="falta"
+            required ng-model="$ctrl.debito.falta">
+         <br>
+         <p ng-show="userForm.falta.$invalid
+              && userForm.falta.$touched && $ctrl.submitted"
+              class="alert alert-danger">Debe ingresar una fecha de alta</p>
+       </div>
+
+       <div class="form-group"
+         ng-class=" {'has-error': userForm.fvencimiento.$invalid
+           && userForm.fvencimiento.$touched && $ctrl.submitted}">
+         <i class="fa fa-calendar" aria-hidden="true"></i>
+         &nbsp;&nbsp;
+         <label for="fvencimiento">Fecha de Vencimiento:</label>
+         <input type="date" class="form-control" name="fvencimiento"
+            required ng-model="$ctrl.debito.fvenc">
+         <br>
+         <p ng-show="userForm.fvencimiento.$invalid
+              && userForm.fvencimiento.$touched && $ctrl.submitted"
+              class="alert alert-danger">Debe ingresar una fecha de vencimiento</p>
+       </div>
+
+       <div class="form-group"
+         ng-class=" {'has-error': userForm.monto.$invalid
+           && userForm.monto.$touched && $ctrl.submitted}">
+         <i class="fa fa-calendar" aria-hidden="true"></i>
+         &nbsp;&nbsp;
+         <label for="monto">Monto:</label>
+         <input type="number" step="0.01" class="form-control" name="monto"
+            required ng-model="$ctrl.debito.monto">
+         <br>
+         <p ng-show="userForm.monto.$invalid
+              && userForm.monto.$touched && $ctrl.submitted"
+              class="alert alert-danger">Debe ingresar un monto</p>
+       </div>
+
+
+       <button type="submit"
+          class="btn btn-default pull-right">Enviar</button>
+     </form>
+    </div>
+
+
   </div>
 </div>
