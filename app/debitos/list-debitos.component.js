@@ -1,3 +1,4 @@
+//jshint esnext:true
 angular.
   module('debitos').
   component('listDebitos', {
@@ -12,12 +13,26 @@ angular.
               self.debitos = result;
             })
             .catch(function(error) {
-              console.log(error);
+              alert("Error");
             });
         };
 
         this.editDebito = function(id) {
           $location.url('/edit/' + id);
+        };
+
+        this.deleteDebito = function(id) {
+          if (confirm("Esta seguro que quiere eliminar dicho débito?")) {
+            var debitosAux = self.debitos.filter(x => !(x.id==id)); //jshint ignore:line
+            self.debitos = debitosAux;
+            debitosService.deleteDebito(id)
+              .then(function(response){
+
+              })
+              .catch(function(error) {
+                alert("Error");
+              });
+          }
         };
 
       }]

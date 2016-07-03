@@ -8,7 +8,7 @@ angular.module('debitos').
         return $q(function(resolve, reject) {
           var lista = [];
           Database.db.all(
-            'SELECT * FROM debito INNER JOIN donante ON iddonante=donante.id',
+            'SELECT * FROM debito INNER JOIN donante ON iddonante=donante.id WHERE debito.activo=1',
             function (err, rows) {
               if (err) {console.log("Error en obtener los debitos"); reject(err);}
               resolve(rows);
@@ -88,6 +88,21 @@ angular.module('debitos').
             }
           });
         });
-      }
+      },
+
+      deleteDebito: function (id) {
+        return $q(function(resolve, reject) {
+          var sql = `UPDATE debito SET activo=0 WHERE id=${id}`;
+          Database.db.run(sql, [], function(error) {
+            if (error) {
+              reject(error);
+              return;
+            }
+            resolve(this.lastID);
+        });
+      });
+    }
+
   };
+
 });

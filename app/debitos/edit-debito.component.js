@@ -24,16 +24,19 @@ angular.
 
       this.submitForm = function(isValid) {
         self.submitted = true;
-        if (isValid) {
-          debitosService.updateDebito(self.debito)
-            .then(function(response) {
-              alert("El débito directo se ha modificado exitosamente!");
-              $location.url('/list');
-            })
-            .catch(function(error) {
-              alert(error);
-            });
-        }
+        if (isValid)
+          self.confirm = true;
+      };
+
+      this.confirm = function() {
+        debitosService.updateDebito(self.debito)
+          .then(function(response) {
+            alert("El débito directo se ha modificado exitosamente!");
+            $location.url('/list');
+          })
+          .catch(function(error) {
+            alert(error);
+          });
       };
 
 

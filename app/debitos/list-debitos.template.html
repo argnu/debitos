@@ -23,6 +23,9 @@
           <th>
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </th>
+          <th>
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -32,8 +35,13 @@
           <td>{{ deb.cuil }}</td>
           <td>{{ deb.cbu }}</td>
           <td>
-            <i class="fa fa-pencil-square-o edit" aria-hidden="true"
+            <i class="fa fa-pencil-square-o list-button" aria-hidden="true"
                 ng-click="$ctrl.editDebito(deb.id)">
+            </i>
+          </td>
+          <td>
+            <i class="fa fa-trash list-button" aria-hidden="true"
+                ng-click="$ctrl.deleteDebito(deb.id)">
             </i>
           </td>
         </tr>
