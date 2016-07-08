@@ -10,11 +10,17 @@ var Database = (function() {
 
     db: null,
 
+    getDB: function() {
+      return database.db;
+    },
+
     open: function(filePath) {
       return new Promise(function(resolve, reject) {
         fs.exists(filePath, (exists) => {
-          if (exists)
-            resolve(new sqlite3.Database(filePath));
+          if (exists) {
+            database.db = new sqlite3.Database(filePath);
+            resolve(database.db);
+          }
           else
             reject("No existe la base");
         });
@@ -29,6 +35,11 @@ var Database = (function() {
         "cbu TEXT, activo BOOLEAN, iddonante INTEGER," +
         "entidad TEXT, fvenc REAL, falta REAL, monto REAL, " +
         " FOREIGN KEY(iddonante) REFERENCES donante(id))");
+    },
+
+    close: function() {
+      if (database.db)
+        database.db.close();
     }
   };
 

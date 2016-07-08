@@ -101,6 +101,18 @@ angular.module('debitos').
             resolve(this.lastID);
         });
       });
+    },
+
+    importDB: function (src) {
+      return $q(function(resolve, reject) {
+        FileAPI.import(src, 'app/BaseDebitos.db')
+          .then(function() {
+            resolve();
+          })
+          .catch(function() {
+            reject();
+          });
+      });
     }
 
   };

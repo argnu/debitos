@@ -12,8 +12,8 @@ angular.
         when('/edit/:id', {
           template: '<edit-debito></edit-debito>'
         }).
-        when('/export', {
-          template: '<export-debitos></export-debitos>'
+        when('/generar', {
+          template: '<generar-debitos></generar-debitos>'
         }).
         when('/nobaseerror', {
           template: '<nobase-error></nobase-error>'

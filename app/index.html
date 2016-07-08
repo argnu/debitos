@@ -12,9 +12,11 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
+    </script>
 
 
     <script src="database.js"></script>
+    <script src="file.js"></script>
 
     <script src="app.module.js" charset="utf-8"></script>
     <script src="app.config.js"></script>
@@ -25,20 +27,28 @@
     <script src="debitos/add-debito.component.js" charset="utf-8"></script>
     <script src="debitos/edit-debito.component.js" charset="utf-8"></script>
     <script src="debitos/list-debitos.component.js" charset="utf-8"></script>
-    <script src="debitos/export-debitos.component.js" charset="utf-8"></script>
+    <script src="debitos/generar-debitos.component.js" charset="utf-8"></script>
     <script src="debitos/nobaseerror.component.js" charset="utf-8"></script>
 
     <script type="text/javascript">
       var win = nw.Window.get();
+      var fileExport;
+
+      //ESTE CODIGO SACARLO
       win.width = 1024;
       win.height = 600;
       win.showDevTools();
 
-      var BaseDebitos;
-      Database.open('BaseDebitos.db')
+      win.on('close', function() {
+        if (confirm("Está seguro/a que desea salir?")) {
+          Database.close();
+          win.close(true);
+        }
+      });
+
+      Database.open('app/BaseDebitos.db')
         .then(function(db) {
           console.log("Base de datos abierta", db);
-          Database.db = db;
         })
         .catch(function(err) {
           window.location.hash = '#/nobaseerror';
@@ -57,18 +67,38 @@
       <br><br><br>
 
       <nav role="navigation" bs-active-link menu-active>
+        <button type="button" class="btn btn-info pull-right"
+            id="btn-save">Exportar</button>
         <ul class="nav nav-pills">
           <li role="presentation" class="active"><a href="#/add">Agregar</a></li>
           <li role="presentation" ><a href="#/list">Modificar</a></li>
-          <li role="presentation"><a href="#/export">Exportar</a></li>
+          <li role="presentation"><a href="#/generar">Generar Archivo</a></li>
         </ul>
       </nav>
+
+      <input type="file" nwsaveas="BaseDebitos.db"
+        style="display:none" id="saveFile"/>
 
       <div class="view-container">
         <div ng-view class="view-frame"></div>
       </div>
 
     </div>
+
+    <script type="text/javascript">
+      document.getElementById("btn-save").addEventListener('click', function() {
+
+        document.getElementById("saveFile").click();
+        document.getElementById("saveFile").addEventListener('change', function () {
+          fileExport = this.value;
+          if (fileExport)
+            FileAPI.import('app/BaseDebitos.db', fileExport);
+          else
+            alert("Error: no se ha especificado un archivo!");
+        });
+
+      });
+    </script>
 
   </body>
 </html>

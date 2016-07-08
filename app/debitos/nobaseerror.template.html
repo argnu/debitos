@@ -6,9 +6,19 @@
   <div class="panel-body">
     <p>No existe ninguna Base de Datos de Débitos activa.</p>
     <p>Desea crear una nueva o importar una existente?</p>
+    <div ng-if="$ctrl.import">
+      <br>
+        <input id="fileDB" class="form-control"
+          onchange="angular.element(this).scope().$parent.$ctrl.importFile(this.value)"
+          ng-model="$ctrl.file"
+          type="file" accept=".db"/>
+      <br>
+    </div>
     <br>
     <button class="btn btn-default" type="button"
       ng-click="$ctrl.createDB()">Crear</button>
-    <button class="btn btn-default" type="button">Importar</button>
+    <button class="btn btn-default" type="button"
+      ng-click="$ctrl.importDB()">Importar</button>
+
   </div>
 </div>
