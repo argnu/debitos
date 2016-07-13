@@ -2,7 +2,9 @@ angular.
   module('debitos').
   component('addDebito', {
     templateUrl: 'debitos/add-debito.template.html',
-    controller: ['debitosService', function AddDebitoController(debitosService) {
+    controller: ['debitosService', 'entidadService',
+      function AddDebitoController(debitosService, entidadService) {
+
       var self = this;
 
 
@@ -10,13 +12,21 @@ angular.
         self.iniciarDebito();
         self.title = 'Agregar Débito';
         self.confirm = false;
+        self.entidad = '';
+        self.noBanco = false;
+        entidadService.getBancosCBU()
+          .then(function(bancos) {
+            self.bancos = bancos;
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
       };
 
       this.iniciarDebito = function () {
         self.debito = {
           nombre: '',
           apellido: '',
-
           cuil: '',
           direccion: '',
           entidad: '',
@@ -27,9 +37,26 @@ angular.
         };
       };
 
+      this.changeEntidad = function () {
+        console.log(self.debito.cbu);
+        if (self.debito.cbu && self.debito.cbu.length>2) {
+          if (self.bancos[self.debito.cbu.substring(0,3)]) {
+            self.debito.entidad = self.bancos[self.debito.cbu.substring(0,3)];
+            self.noBanco = false;
+          }
+          else {
+            self.noBanco = true;
+          }
+        }
+        else {
+          self.debito.entidad = '';
+          self.noBanco = false;
+        }
+      };
+
       this.submitForm = function(isValid) {
         self.submitted = true;
-        if (isValid)
+        if (isValid && !self.noBanco)
           self.confirm = true;
       };
 

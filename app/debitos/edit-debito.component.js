@@ -21,11 +21,28 @@ angular.
 
         self.title = "Modificar Débito";
         self.confirm = false;
+        self.noBanco = false;
       };
+
+      this.changeEntidad = function () {
+        if (self.debito.cbu && self.debito.cbu.length>2) {
+          if (self.bancos[self.debito.cbu.substring(0,3)]) {
+            self.debito.entidad = self.bancos[self.debito.cbu];
+            self.noBanco = false;
+          }
+          else {
+            self.noBanco = true;
+          }
+        }
+        else {
+          self.debito.entidad = '';
+          self.noBanco = false;
+        }
+      };      
 
       this.submitForm = function(isValid) {
         self.submitted = true;
-        if (isValid)
+        if (isValid && !self.noBanco)
           self.confirm = true;
       };
 
