@@ -37,9 +37,9 @@
       var fileExport;
 
       //ESTE CODIGO SACARLO
-      win.width = 1024;
-      win.height = 600;
       win.showDevTools();
+
+
 
       win.on('close', function() {
         if (confirm("Está seguro/a que desea salir?")) {
@@ -55,7 +55,7 @@
         .catch(function(err) {
           window.location.hash = '#/nobaseerror';
           console.log("Error", err);
-        })
+        });
     </script>
 
   </head>

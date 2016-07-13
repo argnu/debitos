@@ -31,7 +31,7 @@ angular.module('debitos').
       },
 
       create: function(path) {
-          Database.create('BaseDebitos.db');
+          Database.create('app/BaseDebitos.db');
       },
 
       addDebito: function (debito) {
