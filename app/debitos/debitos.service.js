@@ -130,7 +130,7 @@ angular.module('debitos').
               var cbubloque1 = listadebitos[i].cbu.substring(0,7);
               var doc = listadebitos[i].cuil.replace("-","");
               var idCliente = " ".repeat(22-(doc.length)) + doc ;
-              var idDebito = (new String(listadebitos[i].id));
+              var idDebito = (listadebitos[i].id.toString());
               var refdebito = " ".repeat(15-(idDebito.length))+idDebito;
               var importe = parseFloat(listadebitos[i].monto).toFixed(2);
               var importeStr = ((importe.toString().replace(".",'')).replace(",",''));

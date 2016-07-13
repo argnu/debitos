@@ -8,6 +8,14 @@ angular.
             resolve(data);
           });
         });
+  		},
+
+      getBancosCBU: function() {
+        return $q(function(resolve, reject) {
+          $http.get('cbuBancos.json').success(function(data){
+            resolve(data);
+          });
+        });
   		}
-    }
+    };
 });
