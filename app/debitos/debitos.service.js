@@ -113,6 +113,61 @@ angular.module('debitos').
             reject();
           });
       });
+    },
+
+    exportarArchivo: function (entidad) {
+      var self = this;
+      return $q(function(resolve,reject) {
+        self.getDebitos()
+          .then(function(listadebitos) {
+
+            var inicial="D"+cuit+"   "+" ".repeat(10-(prestacion.length))+prestacion,
+                importeTotal=0;
+
+            for(var i=0,l;i< listadebitos.length;i++)  {
+              var fecha = moment(new Date(listadebitos[i].fvenc));
+              var fechaVto= fecha.format('DDMMYYYY');
+              var cbubloque1 = listadebitos[i].cbu.substring(0,7);
+              var doc = listadebitos[i].cuil.replace("-","");
+              var idCliente = " ".repeat(22-(doc.length)) + doc ;
+              var idDebito = (new String(listadebitos[i].id));
+              var refdebito = " ".repeat(15-(idDebito.length))+idDebito;
+              var importe = parseFloat(listadebitos[i].monto).toFixed(2);
+              var importeStr = ((importe.toString().replace(".",'')).replace(",",''));
+              var campo12 = ("0".repeat(10-(importeStr.length))) + importeStr;
+              console.log(campo12);
+
+            }
+
+
+            resolve();
+          })
+          .catch(function(error) {
+            reject(error);
+          });
+      });
+
+      /*
+      //Se genera el buffer
+      //Se escribe el buffer en el archivo
+      return $q(function(resolve, reject) {
+      //Se obtienen los datos generales
+      var blanco=" ";
+
+      var inicial="D"+cuit+"   "+blanco.repeat(10-(prestacion.length))+prestacion;
+      var importeTotal=0;
+      console.log(inicial);
+      //Se recorre cada uno de los débitos para formar una línea del archivo
+      for(var i=0,l;i< listaDebitos.length;i++)
+      {
+           console.log(listaDebitos[i].fvenc);
+
+      }
+      resolve();
+
+
+    });*/
+
     }
 
   };

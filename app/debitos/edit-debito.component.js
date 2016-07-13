@@ -20,6 +20,7 @@ angular.
           });
 
         self.title = "Modificar Débito";
+        self.confirm = false;
       };
 
       this.submitForm = function(isValid) {
