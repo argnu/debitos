@@ -11,38 +11,36 @@ angular.
               .then(function(response){
                 self.entidad = response;
                 self.entidad.fecha = new Date(Date.now());
-                console.log(self.entidad);
-              })
+              });
+
+            document.getElementById("upload").addEventListener('change', function () {
+              var dir = this.value;
+              FileAPI.import('app/resources/tmp/archivo1', dir + '/archivo1')
+                .then(function () {
+                    FileAPI.import('app/resources/tmp/archivo2', dir + '/archivo2')
+                      .then(function () {
+                        FileAPI.delete('app/resources/tmp/archivo1');
+                        FileAPI.delete('app/resources/tmp/archivo2');
+                        window.alert("Los archivos se han generado exitosamente!");
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+            });
           };
 
           this.generar = function() {
             debitosService.exportarArchivo(self.entidad)
               .then(function() {
-
-                    alert("El archivo se ha generado exitosamente!");
+                      document.getElementById('upload').click();
                   })
               .catch(function(error) {
                     alert(error);
                  });
-            /*
-           var ncuit= cuit.value.replace(/-/g,"");
-           debitosService.getDebitos()
-            .then(function(result) {
-                debitosService.exportarArchivo(self.entidad,)
-                  .then(function(response) {
-                        alert("El archivo se ha generado exitosamente!");
-                      })
-                  .catch(function(error) {
-                        alert(error);
-                     });
-            })
-            .catch(function(error) {
-              alert("Error");
-            });
-            */
-
-
-
 
          };
 

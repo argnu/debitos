@@ -12,10 +12,15 @@ var FileAPI = (function() {
         fsSource.on('end', resolve);
         fsSource.on('error', reject);
       });
+    },
+
+    delete: function (path) {
+      fs.unlinkSync(path);
+    },
+
+    create: function (src) {
+      fs.openSync(src, 'w');
     }
-
-    
-
   };
 
 })();
