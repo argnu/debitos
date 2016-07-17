@@ -127,13 +127,15 @@ angular.module('debitos').
                 cantRegBPN = 0,
                 cantRegOtros = 0,
                 fechaProceso = moment(new Date(entidad.fecha)),
-                nombreArchivo = 'Archivos/' + 'ORI' + fechaProceso.format('DDMMYYYY');
+                nombreArchivo = 'app/resources/tmp/' + 'ORI' + fechaProceso.format('DDMMYYYY');
 
 
-            FileAPI.createFile(nombreArchivo + '1.txt'); //Archivo BPN
-            FileAPI.createFile(nombreArchivo + '2.txt'); //Archivo Otras entidades
+            //Se crean los dos archivos
+            FileAPI.create( nombreArchivo + '1.txt', 'w'); //Archivo BPN
+            FileAPI.create(nombreArchivo + '2.txt', 'w'); //Archivo Otras entidades
 
             for(var i=0,l;i< listadebitos.length;i++)  {
+
               var fecha = moment(new Date(listadebitos[i].fvenc)),
                   fechaVto= fecha.format('DDMMYYYY'),
                   cbubloque1 = listadebitos[i].cbu.substring(0,8),
@@ -200,6 +202,7 @@ angular.module('debitos').
               FileAPI.append(nombreArchivo + '2.txt', trailer);
 
             }
+
 
 
             resolve();

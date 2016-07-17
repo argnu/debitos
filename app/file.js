@@ -13,6 +13,7 @@ var FileAPI = (function() {
         fsSource.on('error', reject);
       });
     },
+<<<<<<< HEAD
 
     createFile: function(path)  {
       return fs.openSync(path, "w");
@@ -23,7 +24,16 @@ var FileAPI = (function() {
     }
 
 
+=======
 
+    delete: function (path) {
+      fs.unlinkSync(path);
+    },
+>>>>>>> 032e37cc7c1dc662a675395b892650576794b508
+
+    create: function (src) {
+      fs.openSync(src, 'w');
+    }
   };
 
 })();

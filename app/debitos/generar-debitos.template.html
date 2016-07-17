@@ -2,7 +2,12 @@
   <div class="panel-heading"
     style="text-align:center;font-weight:bold;font-size:130%">Generar Archivo de Débitos
   </div>
-  <div class="panel-body" >
+  <div class="panel-body">
+
+    <input style="display:none"
+          id="upload"
+          type="file" nwdirectory/>
+
     <form role="form"  >
       <div class="form-group" >
         <i class="fa fa-group" aria-hidden="true"></i>
@@ -10,6 +15,7 @@
         <label for="nombre">Nombre:</label>
         <input type="text" class="form-control" id="nombre" ng-model="$ctrl.entidad.nombre">
       </div>
+
       <div class="form-group" >
         <i class="fa fa-group" aria-hidden="true"></i>
         &nbsp;&nbsp;
@@ -17,20 +23,23 @@
         <input type="text" class="form-control" id="cuit"
           ng-model="$ctrl.entidad.cuit">
       </div>
+
       <div class="form-group">
         <i class="fa fa-calendar" aria-hidden="true"></i>
         &nbsp;&nbsp;
         <label for="fecha">Fecha de Proceso:</label>
         <input type="date" class="form-control" id="fecha" ng-model="$ctrl.entidad.fecha" >
       </div>
+
      <div class="form-group">
        <i class="fa fa-group" aria-hidden="true"></i>
        &nbsp;&nbsp;
        <label for="pestacion">Prestacion:</label>
        <input type="text" class="form-control" id="prestacion" ng-model="$ctrl.entidad.prestacion">
      </div>
+
      <button type="submit" class="btn btn-default pull-right"
-     ng-click="$ctrl.generar()" >Generar</button>
+     ng-click="$ctrl.generar()">Generar</button>
    </form>
   </div>
 </div>
