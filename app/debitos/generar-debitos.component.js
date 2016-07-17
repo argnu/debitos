@@ -15,17 +15,10 @@ angular.
 
             document.getElementById("upload").addEventListener('change', function () {
               var dir = this.value;
-              FileAPI.import('app/resources/tmp/archivo1', dir + '/archivo1')
+              FileAPI.copyDir('app/resources/tmp/', dir)
                 .then(function () {
-                    FileAPI.import('app/resources/tmp/archivo2', dir + '/archivo2')
-                      .then(function () {
-                        FileAPI.delete('app/resources/tmp/archivo1');
-                        FileAPI.delete('app/resources/tmp/archivo2');
-                        window.alert("Los archivos se han generado exitosamente!");
-                      })
-                      .catch(function (error) {
-                        console.log(error);
-                      });
+                    FileAPI.deleteDir('app/resources/tmp');
+                    window.alert("Los archivos se han generado exitosamente!");
                 })
                 .catch(function (error) {
                   console.log(error);

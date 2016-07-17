@@ -131,8 +131,8 @@ angular.module('debitos').
 
 
             //Se crean los dos archivos
-            FileAPI.create( nombreArchivo + '1.txt', 'w'); //Archivo BPN
-            FileAPI.create(nombreArchivo + '2.txt', 'w'); //Archivo Otras entidades
+            FileAPI.create(nombreArchivo + '1'); //Archivo BPN
+            FileAPI.create(nombreArchivo + '2'); //Archivo Otras entidades
 
             for(var i=0,l;i< listadebitos.length;i++)  {
 
@@ -160,13 +160,13 @@ angular.module('debitos').
                    cantRegBPN= cantRegBPN + 1;
                    importeTotalBPN = importeTotalBPN + importe;
                    //Escribo la línea en el archivo correspondiente del BPN
-                   FileAPI.append(nombreArchivo + '1.txt', linea);
+                   FileAPI.append(nombreArchivo + '1', linea);
               }
               else {
                   cantRegOtros = cantRegOtros +1;
                   importeTotalOtros = importeTotalOtros + importe;
                   //Escribo la línea en el archivo correspondiente
-                  FileAPI.append(nombreArchivo + '2.txt', linea);
+                  FileAPI.append(nombreArchivo + '2', linea);
               }
 
 
@@ -186,7 +186,7 @@ angular.module('debitos').
                           fechaProceso.format('DDMMYYYY') + " ".repeat(70) +
                           (("0".repeat(10-(totalImporteStr.length))) + totalImporteStr) +
                           " ".repeat(137);
-                FileAPI.append(nombreArchivo + '1.txt', trailer);
+                FileAPI.append(nombreArchivo + '1', trailer);
 
             }
             else {
@@ -199,7 +199,7 @@ angular.module('debitos').
                         fechaProceso.format('DDMMYYYY') + " ".repeat(70) +
                         (("0".repeat(10-(totalImporteStr.length))) + totalImporteStr) +
                         " ".repeat(137);
-              FileAPI.append(nombreArchivo + '2.txt', trailer);
+              FileAPI.append(nombreArchivo + '2', trailer);
 
             }
 
