@@ -12,9 +12,17 @@ var FileAPI = (function() {
         fsSource.on('end', resolve);
         fsSource.on('error', reject);
       });
+    },
+
+    createFile: function(path)  {
+      return fs.openSync(path, "w");
+    },
+
+    append: function(file, data) {
+    fs.writeFileSync(file, data,  encoding='utf8');
     }
 
-    
+
 
   };
 

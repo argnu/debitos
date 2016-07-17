@@ -121,21 +121,83 @@ angular.module('debitos').
         self.getDebitos()
           .then(function(listadebitos) {
 
-            var inicial="D"+cuit+"   "+" ".repeat(10-(prestacion.length))+prestacion,
-                importeTotal=0;
+            var inicial = "D"+entidad.cuit.replace(/-/g,"")+"   "+" ".repeat(10-(entidad.prestacion.length))+entidad.prestacion,
+                importeTotalBPN = 0,
+                importeTotalOtros = 0,
+                cantRegBPN = 0,
+                cantRegOtros = 0,
+                fechaProceso = moment(new Date(entidad.fecha)),
+                nombreArchivo = 'Archivos/' + 'ORI' + fechaProceso.format('DDMMYYYY');
+
+
+            FileAPI.createFile(nombreArchivo + '1.txt'); //Archivo BPN
+            FileAPI.createFile(nombreArchivo + '2.txt'); //Archivo Otras entidades
 
             for(var i=0,l;i< listadebitos.length;i++)  {
-              var fecha = moment(new Date(listadebitos[i].fvenc));
-              var fechaVto= fecha.format('DDMMYYYY');
-              var cbubloque1 = listadebitos[i].cbu.substring(0,7);
-              var doc = listadebitos[i].cuil.replace("-","");
-              var idCliente = " ".repeat(22-(doc.length)) + doc ;
-              var idDebito = listadebitos[i].id.toString();
-              var refdebito = " ".repeat(15-(idDebito.length))+idDebito;
-              var importe = parseFloat(listadebitos[i].monto).toFixed(2);
-              var importeStr = ((importe.toString().replace(".",'')).replace(",",''));
-              var campo12 = ("0".repeat(10-(importeStr.length))) + importeStr;
-              console.log(campo12);
+              var fecha = moment(new Date(listadebitos[i].fvenc)),
+                  fechaVto= fecha.format('DDMMYYYY'),
+                  cbubloque1 = listadebitos[i].cbu.substring(0,8),
+                  cbubloque2 = listadebitos[i].cbu.substring(8,22),
+                  doc = listadebitos[i].cuil.replace(/-/g,""),
+                  idCliente = " ".repeat(22-(doc.length)) + doc,
+                  idDebito = listadebitos[i].id.toString(),
+                  refdebito = " ".repeat(15-(idDebito.length)) + idDebito,
+                  importe = parseFloat(listadebitos[i].monto).toFixed(2),
+                  importeStr = ((importe.toString().replace(".",'')).replace(",",'')),
+                  importeDebito = ("0".repeat(10-(importeStr.length))) + importeStr,
+                  campo13 = "80",
+                  campo19 = "   ", // Código de rechazo de tabla de BCRA
+                  campoFinal =  " ".repeat(22) + campo19 + "0".repeat(10) + "0".repeat(10) + " ".repeat(54);
+
+              var linea = inicial + fechaVto + cbubloque1 + "000" + cbubloque2 + idCliente + fechaVto +
+                         refdebito + importeDebito + campo13 + fechaVto + importeDebito + fechaVto +
+                         importeDebito + campoFinal + "\n";
+
+              if (listadebitos[i].cbu.substring(0,3) == "097") {
+                   //Se trata de un debito del BPN
+                   cantRegBPN= cantRegBPN + 1;
+                   importeTotalBPN = importeTotalBPN + importe;
+                   //Escribo la línea en el archivo correspondiente del BPN
+                   FileAPI.append(nombreArchivo + '1.txt', linea);
+              }
+              else {
+                  cantRegOtros = cantRegOtros +1;
+                  importeTotalOtros = importeTotalOtros + importe;
+                  //Escribo la línea en el archivo correspondiente
+                  FileAPI.append(nombreArchivo + '2.txt', linea);
+              }
+
+
+            }
+
+            var trailer = "",
+                cantRegStr = "",
+                totalImporteStr;
+
+            if (cantRegBPN > 0) {
+              //Se escribe el trailer para el archivo BPN
+                cantRegStr = parseInt(cantRegBPN).toString();
+                totalImporteStr = parseFloat(importeTotalBPN).toFixed(2);
+                totalImporteStr = ((totalImporteStr.toString().replace(".",'')).replace(",",''));
+                trailer = "T" + (("0".repeat(10-(cantRegStr.length))) + cantRegStr) +
+                          (("7".repeat(10-(cantRegStr.length))) + cantRegStr) +  "0".repeat(7) +
+                          fechaProceso.format('DDMMYYYY') + " ".repeat(70) +
+                          (("0".repeat(10-(totalImporteStr.length))) + totalImporteStr) +
+                          " ".repeat(137);
+                FileAPI.append(nombreArchivo + '1.txt', trailer);
+
+            }
+            else {
+              //Se escribe el trailer para el archivo de otra entidad
+              cantRegStr = parseInt(cantRegOtros).toString();
+              totalImporteStr = parseFloat(importeTotalOtros).toFixed(2);
+              totalImporteStr = ((totalImporteStr.toString().replace(".",'')).replace(",",''));
+              trailer = "T" + (("0".repeat(10-(cantRegStr.length))) + cantRegStr) +
+                        (("7".repeat(10-(cantRegStr.length))) + cantRegStr) +  "0".repeat(7) +
+                        fechaProceso.format('DDMMYYYY') + " ".repeat(70) +
+                        (("0".repeat(10-(totalImporteStr.length))) + totalImporteStr) +
+                        " ".repeat(137);
+              FileAPI.append(nombreArchivo + '2.txt', trailer);
 
             }
 
@@ -146,27 +208,6 @@ angular.module('debitos').
             reject(error);
           });
       });
-
-      /*
-      //Se genera el buffer
-      //Se escribe el buffer en el archivo
-      return $q(function(resolve, reject) {
-      //Se obtienen los datos generales
-      var blanco=" ";
-
-      var inicial="D"+cuit+"   "+blanco.repeat(10-(prestacion.length))+prestacion;
-      var importeTotal=0;
-      console.log(inicial);
-      //Se recorre cada uno de los débitos para formar una línea del archivo
-      for(var i=0,l;i< listaDebitos.length;i++)
-      {
-           console.log(listaDebitos[i].fvenc);
-
-      }
-      resolve();
-
-
-    });*/
 
     }
 
