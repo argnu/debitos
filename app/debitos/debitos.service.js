@@ -160,6 +160,7 @@ angular.module('debitos').
                    cantRegBPN= cantRegBPN + 1;
                    importeTotalBPN = importeTotalBPN + importe;
                    //Escribo la línea en el archivo correspondiente del BPN
+                   console.log(linea);
                    FileAPI.append(nombreArchivo + '1', linea);
               }
               else {
@@ -182,10 +183,12 @@ angular.module('debitos').
                 totalImporteStr = parseFloat(importeTotalBPN).toFixed(2);
                 totalImporteStr = ((totalImporteStr.toString().replace(".",'')).replace(",",''));
                 trailer = "T" + (("0".repeat(10-(cantRegStr.length))) + cantRegStr) +
-                          (("7".repeat(10-(cantRegStr.length))) + cantRegStr) +  "0".repeat(7) +
+                          (("0".repeat(7-(cantRegStr.length))) + cantRegStr) +  "0".repeat(7) +
                           fechaProceso.format('DDMMYYYY') + " ".repeat(70) +
                           (("0".repeat(10-(totalImporteStr.length))) + totalImporteStr) +
-                          " ".repeat(137);
+                          " ".repeat(137) + "\n";
+                console.log(trailer);
+                console.log(trailer.length);
                 FileAPI.append(nombreArchivo + '1', trailer);
 
             }
@@ -195,10 +198,10 @@ angular.module('debitos').
               totalImporteStr = parseFloat(importeTotalOtros).toFixed(2);
               totalImporteStr = ((totalImporteStr.toString().replace(".",'')).replace(",",''));
               trailer = "T" + (("0".repeat(10-(cantRegStr.length))) + cantRegStr) +
-                        (("7".repeat(10-(cantRegStr.length))) + cantRegStr) +  "0".repeat(7) +
+                        (("0".repeat(7-(cantRegStr.length))) + cantRegStr) +  "0".repeat(7) +
                         fechaProceso.format('DDMMYYYY') + " ".repeat(70) +
                         (("0".repeat(10-(totalImporteStr.length))) + totalImporteStr) +
-                        " ".repeat(137);
+                        " ".repeat(137) + "\n" ;
               FileAPI.append(nombreArchivo + '2', trailer);
 
             }

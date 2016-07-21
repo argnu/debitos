@@ -4,8 +4,6 @@ Débitos Directos. App desarrollada con AngularJS y Node Web Kit.
 
 TODO
 ----
-- Controlar error si no puede crear la base.
-- Armar el string de exportación.
 - Crear instalador de windows.
 
 

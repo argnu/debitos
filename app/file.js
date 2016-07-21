@@ -15,7 +15,9 @@ var FileAPI = (function() {
     },
 
     append: function(file, data) {
-      fs.writeFileSync(file, data,  encoding='utf8');
+      //fs.writeFileSync(file, data,  encoding='utf8');
+      fs.appendFileSync(file, data,  encoding='utf8');
+
     },
 
     deleteDir: function (src) {
