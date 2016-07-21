@@ -1,5 +1,5 @@
 # debitos
-Débitos Directos. App desarrollada con AngularJS y Node Web Kit.
+Débitos Directos. App desarrollada con AngularJS, Node Web Kit y Sqlite.
 
 
 TODO
