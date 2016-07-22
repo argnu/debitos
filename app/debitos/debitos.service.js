@@ -7,8 +7,12 @@ angular.module('debitos').
       getDebitos: function() {
         return $q(function(resolve, reject) {
           var lista = [];
+          var sql = 'SELECT nombre,apellido,direccion,cuil,iddonante, ' +
+                    ' debito.id as iddebito,cbu,activo,entidad,fvenc,falta,monto ' +
+                    ' FROM debito INNER JOIN donante ON iddonante=donante.id ' +
+                    ' WHERE activo=1';
           Database.db.all(
-            'SELECT * FROM debito INNER JOIN donante ON iddonante=donante.id WHERE debito.activo=1',
+            sql,
             function (err, rows) {
               if (err) {console.log("Error en obtener los debitos"); reject(err);}
               resolve(rows);
@@ -19,8 +23,10 @@ angular.module('debitos').
 
       getDebito: function(id) {
         return $q(function(resolve, reject) {
-          var sql = 'SELECT * FROM debito INNER JOIN donante ON iddonante=donante.id' +
-                    ` AND debito.id=${id} `;
+          var sql = 'SELECT nombre,apellido,direccion,cuil,iddonante ' +
+                    ',debito.id as iddebito,cbu,activo,entidad,fvenc,falta,monto ' +
+                    ' FROM debito INNER JOIN donante ON iddonante=donante.id ' +
+                    ` WHERE activo=1 AND debito.id=${id} `;
           Database.db.get(sql,
             function (err, row) {
               if (err) {console.log("Error en obtener los debitos"); reject(err);}
@@ -46,7 +52,7 @@ angular.module('debitos').
             else {
               var sql = " INSERT INTO debito (cbu, activo, iddonante, entidad, fvenc, falta, monto) " +
               ` VALUES ("${debito.cbu}", 1, ${this.lastID}, "${debito.entidad}", ` +
-              ` "${debito.fvenc}", "${debito.falta}", ${debito.monto}) `;
+              ` ${debito.fvenc}, ${debito.falta}, ${debito.monto}) `;
               Database.db.run(sql, [], function(error) {
                 if (error) {
                   reject(error);
@@ -65,8 +71,9 @@ angular.module('debitos').
       updateDebito: function(debito) {
         return $q(function(resolve, reject) {
           var sql = " UPDATE donante SET " +
-          `nombre="${debito.nombre}", apellido="${debito.apellido}", ` +
-          `cuil="${debito.cuil}", direccion="${debito.direccion}"`;
+          ` nombre="${debito.nombre}", apellido="${debito.apellido}", ` +
+          ` cuil="${debito.cuil}", direccion="${debito.direccion}" ` +
+          ` WHERE id=${debito.iddonante}`;
           Database.db.run(sql, [], function(error) {
             if (error) {
               reject(error);
@@ -74,8 +81,10 @@ angular.module('debitos').
             }
             else {
               var sql = " UPDATE debito SET " +
-              `cbu="${debito.cbu}", entidad="${debito.entidad}", ` +
-              `fvenc="${debito.fvenc}", falta="${debito.falta}", monto="${debito.monto}"`;
+              ` cbu="${debito.cbu}", entidad="${debito.entidad}", ` +
+              ` fvenc=${debito.fvenc.valueOf()}, falta=${debito.falta.valueOf()}, monto=${debito.monto} ` +
+              ` WHERE id=${debito.iddebito}`;
+              console.log(sql);
               Database.db.run(sql, [], function(error) {
                 if (error) {
                   reject(error);

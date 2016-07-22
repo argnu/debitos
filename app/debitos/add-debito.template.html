@@ -16,8 +16,8 @@
       <p>Dirección: <b>{{$ctrl.debito.direccion}}</b></p>
       <p>Entidad: <b>{{$ctrl.debito.entidad}}</b></p>
       <p>CBU: <b>{{$ctrl.debito.cbu}}</b></p>
-      <p>Fecha de Alta: <b>{{$ctrl.debito.falta}}</b></p>
-      <p>Fecha de Vencimiento: <b>{{$ctrl.debito.fvenc}}</b></p>
+      <p>Fecha de Alta: <b>{{$ctrl.debito.falta | date:'dd/MM/yyyy'}}</b></p>
+      <p>Fecha de Vencimiento: <b>{{$ctrl.debito.fvenc | date:'dd/MM/yyyy'}}</b></p>
       <p>Monto: <b>{{$ctrl.debito.monto}}</b></p>
       <br><br>
       <button type="button" class="btn btn-info pull-right"

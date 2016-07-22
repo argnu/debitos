@@ -23,7 +23,7 @@ angular.
         this.importFile = function (file) {
           debitosService.importDB(file)
             .then(function() {
-              Database.open('BaseDebitos.db')
+              Database.open('app/BaseDebitos.db')
                 .then(function(db) {
                   Database.db = db;
                   window.location.hash="#/add";

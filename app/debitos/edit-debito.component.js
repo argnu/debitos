@@ -12,7 +12,7 @@ angular.
             debito.fvenc = new Date(debito.fvenc);
             debito.falta = new Date(debito.falta);
             debito.cuil = parseInt(debito.cuil);
-            debito.cbu = parseInt(debito.cbu);
+            debito.cbu = debito.cbu;
             self.debito = debito;
             entidadService.getBancosCBU()
               .then(function(bancos) {
@@ -32,7 +32,6 @@ angular.
       };
 
       this.changeEntidad = function () {
-        console.log(self.debito.cbu);
         if (self.debito.cbu && self.debito.cbu.length>2) {
           if (self.bancos[self.debito.cbu.substring(0,3)]) {
             self.debito.entidad = self.bancos[self.debito.cbu.substring(0,3)];

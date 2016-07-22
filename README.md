@@ -4,7 +4,6 @@ Débitos Directos. App desarrollada con AngularJS, Node Web Kit y Sqlite.
 
 TODO
 ----
-- Crear instalador de windows.
 
 
 A TENER EN CUENTA
