@@ -52,7 +52,7 @@ angular.module('debitos').
             else {
               var sql = " INSERT INTO debito (cbu, activo, iddonante, entidad, fvenc, falta, monto) " +
               ` VALUES ("${debito.cbu}", 1, ${this.lastID}, "${debito.entidad}", ` +
-              ` ${debito.fvenc}, ${debito.falta}, ${debito.monto}) `;
+              ` ${debito.fvenc.valueOf()}, ${debito.falta.valueOf()}, ${debito.monto}) `;
               Database.db.run(sql, [], function(error) {
                 if (error) {
                   reject(error);
@@ -144,14 +144,14 @@ angular.module('debitos').
             FileAPI.create(nombreArchivo + '2'); //Archivo Otras entidades
 
             for(var i=0,l;i< listadebitos.length;i++)  {
-
+           console.log(listadebitos[i]);
               var fecha = moment(new Date(listadebitos[i].fvenc)),
                   fechaVto= fecha.format('DDMMYYYY'),
                   cbubloque1 = listadebitos[i].cbu.substring(0,8),
                   cbubloque2 = listadebitos[i].cbu.substring(8,22),
                   doc = listadebitos[i].cuil.replace(/-/g,""),
                   idCliente = " ".repeat(22-(doc.length)) + doc,
-                  idDebito = listadebitos[i].id.toString(),
+                  idDebito = listadebitos[i].iddebito.toString(),
                   refdebito = " ".repeat(15-(idDebito.length)) + idDebito,
                   importe = parseFloat(listadebitos[i].monto).toFixed(2),
                   importeStr = ((importe.toString().replace(".",'')).replace(",",'')),
@@ -166,10 +166,10 @@ angular.module('debitos').
 
               if (listadebitos[i].cbu.substring(0,3) == "097") {
                    //Se trata de un debito del BPN
+                   console.log(listadebitos[i].cbu.substring(0,3));
                    cantRegBPN= cantRegBPN + 1;
                    importeTotalBPN = importeTotalBPN + importe;
                    //Escribo la línea en el archivo correspondiente del BPN
-                   console.log(linea);
                    FileAPI.append(nombreArchivo + '1', linea);
               }
               else {
@@ -186,7 +186,7 @@ angular.module('debitos').
                 cantRegStr = "",
                 totalImporteStr;
 
-            if (cantRegBPN > 0) {
+
               //Se escribe el trailer para el archivo BPN
                 cantRegStr = parseInt(cantRegBPN).toString();
                 totalImporteStr = parseFloat(importeTotalBPN).toFixed(2);
@@ -196,12 +196,10 @@ angular.module('debitos').
                           fechaProceso.format('DDMMYYYY') + " ".repeat(70) +
                           (("0".repeat(10-(totalImporteStr.length))) + totalImporteStr) +
                           " ".repeat(137) + "\n";
-                console.log(trailer);
-                console.log(trailer.length);
+
                 FileAPI.append(nombreArchivo + '1', trailer);
 
-            }
-            else {
+
               //Se escribe el trailer para el archivo de otra entidad
               cantRegStr = parseInt(cantRegOtros).toString();
               totalImporteStr = parseFloat(importeTotalOtros).toFixed(2);
@@ -211,9 +209,8 @@ angular.module('debitos').
                         fechaProceso.format('DDMMYYYY') + " ".repeat(70) +
                         (("0".repeat(10-(totalImporteStr.length))) + totalImporteStr) +
                         " ".repeat(137) + "\n" ;
-              FileAPI.append(nombreArchivo + '2', trailer);
 
-            }
+              FileAPI.append(nombreArchivo + '2', trailer);
 
 
 
