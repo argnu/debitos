@@ -11,6 +11,13 @@ angular.
               .then(function(response){
                 self.entidad = response;
                 self.entidad.fecha = new Date(Date.now());
+                if (self.entidad.fecha.getDate() > 10){
+                  self.entidad.vencimiento = new Date((self.entidad.fecha.getFullYear()),(self.entidad.fecha.getMonth())+1,10, 0, 0,0,0);
+                }
+                else {
+                  self.entidad.vencimiento = new Date((self.entidad.fecha.getFullYear()),(self.entidad.fecha.getMonth()),10, 0, 0,0,0);
+                }
+
               });
 
             document.getElementById("upload").addEventListener('change', function () {

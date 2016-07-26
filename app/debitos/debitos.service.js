@@ -136,8 +136,9 @@ angular.module('debitos').
                 cantRegBPN = 0,
                 cantRegOtros = 0,
                 fechaProceso = moment(new Date(entidad.fecha)),
-                nombreArchivo = 'app/resources/tmp/' + 'ORI' + fechaProceso.format('DDMMYYYY');
-
+                nombreArchivo = 'app/resources/tmp/' + 'ORI' + fechaProceso.format('DDMMYYYY'),
+                fecha = moment(new Date(entidad.vencimiento)),
+                fechaVto= fecha.format('DDMMYYYY');
 
             //Se crean los dos archivos
             FileAPI.create(nombreArchivo + '1'); //Archivo BPN
@@ -145,8 +146,7 @@ angular.module('debitos').
 
             for(var i=0,l;i< listadebitos.length;i++)  {
            console.log(listadebitos[i]);
-              var fecha = moment(new Date(listadebitos[i].fvenc)),
-                  fechaVto= fecha.format('DDMMYYYY'),
+              var
                   cbubloque1 = listadebitos[i].cbu.substring(0,8),
                   cbubloque2 = listadebitos[i].cbu.substring(8,22),
                   doc = listadebitos[i].cuil.replace(/-/g,""),
@@ -186,31 +186,34 @@ angular.module('debitos').
                 cantRegStr = "",
                 totalImporteStr;
 
+                if (cantRegBPN>0){
+                  //Se escribe el trailer para el archivo BPN
+                    cantRegStr = parseInt(cantRegBPN).toString();
+                    totalImporteStr = parseFloat(importeTotalBPN).toFixed(2);
+                    totalImporteStr = ((totalImporteStr.toString().replace(".",'')).replace(",",''));
+                    trailer = "T" + (("0".repeat(10-(cantRegStr.length))) + cantRegStr) +
+                              (("0".repeat(7-(cantRegStr.length))) + cantRegStr) +  "0".repeat(7) +
+                              fechaProceso.format('DDMMYYYY') + " ".repeat(70) +
+                              (("0".repeat(10-(totalImporteStr.length))) + totalImporteStr) +
+                              " ".repeat(137) + "\n";
 
-              //Se escribe el trailer para el archivo BPN
-                cantRegStr = parseInt(cantRegBPN).toString();
-                totalImporteStr = parseFloat(importeTotalBPN).toFixed(2);
-                totalImporteStr = ((totalImporteStr.toString().replace(".",'')).replace(",",''));
-                trailer = "T" + (("0".repeat(10-(cantRegStr.length))) + cantRegStr) +
-                          (("0".repeat(7-(cantRegStr.length))) + cantRegStr) +  "0".repeat(7) +
-                          fechaProceso.format('DDMMYYYY') + " ".repeat(70) +
-                          (("0".repeat(10-(totalImporteStr.length))) + totalImporteStr) +
-                          " ".repeat(137) + "\n";
+                    FileAPI.append(nombreArchivo + '1', trailer);
+                }
 
-                FileAPI.append(nombreArchivo + '1', trailer);
+                if (cantRegOtros>0){
+                  //Se escribe el trailer para el archivo de otra entidad
+                  cantRegStr = parseInt(cantRegOtros).toString();
+                  totalImporteStr = parseFloat(importeTotalOtros).toFixed(2);
+                  totalImporteStr = ((totalImporteStr.toString().replace(".",'')).replace(",",''));
+                  trailer = "T" + (("0".repeat(10-(cantRegStr.length))) + cantRegStr) +
+                            (("0".repeat(7-(cantRegStr.length))) + cantRegStr) +  "0".repeat(7) +
+                            fechaProceso.format('DDMMYYYY') + " ".repeat(70) +
+                            (("0".repeat(10-(totalImporteStr.length))) + totalImporteStr) +
+                            " ".repeat(137) + "\n" ;
 
+                  FileAPI.append(nombreArchivo + '2', trailer);
 
-              //Se escribe el trailer para el archivo de otra entidad
-              cantRegStr = parseInt(cantRegOtros).toString();
-              totalImporteStr = parseFloat(importeTotalOtros).toFixed(2);
-              totalImporteStr = ((totalImporteStr.toString().replace(".",'')).replace(",",''));
-              trailer = "T" + (("0".repeat(10-(cantRegStr.length))) + cantRegStr) +
-                        (("0".repeat(7-(cantRegStr.length))) + cantRegStr) +  "0".repeat(7) +
-                        fechaProceso.format('DDMMYYYY') + " ".repeat(70) +
-                        (("0".repeat(10-(totalImporteStr.length))) + totalImporteStr) +
-                        " ".repeat(137) + "\n" ;
-
-              FileAPI.append(nombreArchivo + '2', trailer);
+                }
 
 
 
