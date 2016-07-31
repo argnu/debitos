@@ -7,39 +7,44 @@
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="app.css" charset="utf-8">
 
+    <!-- LIBRARIES -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/jspdf/dist/jspdf.min.js"></script>
+    <script src="bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
+    <!-- LIBRARIES -->
 
-
-
+    <!-- CODIGO NODE -->
     <script src="database.js"></script>
     <script src="file.js"></script>
+    <!-- CODIGO NODE -->
 
+    <!-- ANGULAR APP-->
     <script src="app.module.js" charset="utf-8"></script>
     <script src="app.config.js"></script>
     <script src="directives.js"></script>
+      <!-- MODULOS DEBITOS-->
+      <script src="debitos/debitos.module.js" charset="utf-8"></script>
+      <script src="debitos/debitos.service.js" charset="utf-8"></script>
+      <script src="debitos/entidad.service.js" charset="utf-8"></script>
+      <script src="debitos/add-debito.component.js" charset="utf-8"></script>
+      <script src="debitos/edit-debito.component.js" charset="utf-8"></script>
+      <script src="debitos/list-debitos.component.js" charset="utf-8"></script>
+      <script src="debitos/generar-debitos.component.js" charset="utf-8"></script>
+      <script src="debitos/nobaseerror.component.js" charset="utf-8"></script>
+    <!-- ANGULAR APP-->
 
-    <script src="debitos/debitos.module.js" charset="utf-8"></script>
-    <script src="debitos/debitos.service.js" charset="utf-8"></script>
-    <script src="debitos/entidad.service.js" charset="utf-8"></script>
-    <script src="debitos/add-debito.component.js" charset="utf-8"></script>
-    <script src="debitos/edit-debito.component.js" charset="utf-8"></script>
-    <script src="debitos/list-debitos.component.js" charset="utf-8"></script>
-    <script src="debitos/generar-debitos.component.js" charset="utf-8"></script>
-    <script src="debitos/nobaseerror.component.js" charset="utf-8"></script>
-
+    <!-- INICIAR APLICACIÓN-->
     <script type="text/javascript">
       var win = nw.Window.get();
       var fileExport;
 
       //ESTE CODIGO SACARLO
       win.showDevTools();
-
-
 
       win.on('close', function() {
         if (confirm("Está seguro/a que desea salir?")) {
@@ -56,7 +61,10 @@
           window.location.hash = '#/nobaseerror';
           console.log("Error", err);
         });
+
+
     </script>
+    <!-- INICIAR APLICACIÓN-->
 
   </head>
 

@@ -4,6 +4,18 @@
     Débito Directos
   </div>
   <div class="panel-body">
+    <div class="pull-right">
+      <a download="ListaDebitos.xls" href="#" title="Exportar a Excel"
+        id="button-exportExcel"
+        onclick="return angular.element(this).scope().$ctrl.exportExcel(this)">
+        <i class="fa fa-file-excel-o fa-2x" aria-hidden="true"></i>
+      </a>
+      &nbsp;&nbsp;
+      <a style="cursor:pointer" title="Exportar a PDF"
+        ng-click="$ctrl.exportPDF()">
+        <i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i>
+      </a>
+    </div>
     <form class="form-inline" role="form">
       <div class="form-group">
         <input type="text" class="form-control"
@@ -13,13 +25,14 @@
       </div>
     </form>
     <br>
-    <table class="table table-hover">
+    <table class="table table-hover" id="datatable">
       <thead>
         <tr>
           <th>Nombre</th>
           <th>Apellido</th>
           <th>CUIL</th>
           <th>CBU</th>
+          <th>Monto</th>
           <th>
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </th>
@@ -34,6 +47,7 @@
           <td>{{ deb.apellido }}</td>
           <td>{{ deb.cuil }}</td>
           <td>{{ deb.cbu }}</td>
+          <td>{{ deb.monto }}</td>
           <td>
             <i class="fa fa-pencil-square-o list-button" aria-hidden="true"
                 ng-click="$ctrl.editDebito(deb.iddebito)">
